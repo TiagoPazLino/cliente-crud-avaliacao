@@ -1,14 +1,16 @@
 package br.com.tokiomarine.service.impl;
 
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import br.com.tokiomarine.damain.Cliente;
 import br.com.tokiomarine.repository.ClienteRepository;
-import br.com.tokiomarine.service.ClienteService;
+import br.com.tokiomarine.service.CrudService;
 
 @Service
-public class ClienteServiceImpl implements ClienteService {
+public class ClienteService implements CrudService<Cliente, Long> {
 
 	@Autowired
 	private ClienteRepository clienteRepository;
@@ -19,8 +21,14 @@ public class ClienteServiceImpl implements ClienteService {
 	}
 
 	@Override
-	public Cliente save(Cliente cliente) {
-		return clienteRepository.save(cliente);
+	public Cliente findById(Long id) {
+		Optional<Cliente> baseCliente = clienteRepository.findById(id);
+		return baseCliente.isPresent() ? baseCliente.get() : null;
+	}
+
+	@Override
+	public Cliente save(Cliente paramCliente) {
+		return clienteRepository.save(paramCliente);
 	}
 
 	@Override
