@@ -7,6 +7,9 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.NotEmpty;
+
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonProperty.Access;
 
@@ -22,7 +25,7 @@ import lombok.NonNull;
 public class Endereco {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
 	@ManyToOne
@@ -31,7 +34,7 @@ public class Endereco {
 
 	@Column
 	@NonNull
-	// @Pattern(regexp = "([(0-9)]{8})")
+	@Pattern(regexp = "([(0-9)]{8})|([(0-9)]{5}-[(0-9)]{3})")
 	private String cep;
 	
 	@Column

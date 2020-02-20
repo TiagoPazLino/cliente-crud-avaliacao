@@ -24,6 +24,14 @@ public class EnderecoService implements CrudService<Endereco, Long> {
 		return enderecoRepository.findAll();
 	}
 
+	public Iterable<Endereco> findByClienteId(Long idCliente) {
+		Iterable<Endereco> enderecos = enderecoRepository.findAllByClienteId(idCliente);
+		if (enderecos.spliterator().getExactSizeIfKnown() != 0) {
+			return enderecos;
+		}
+		return null;
+	}
+
 	@Override
 	public Endereco findById(Long id) {
 		Optional<Endereco> baseEndereco = enderecoRepository.findById(id);
@@ -55,5 +63,6 @@ public class EnderecoService implements CrudService<Endereco, Long> {
 	private URI urlCepBuilder(String cep, String apiReturnType) throws MalformedURLException {
 		return URI.create(Constantes.VIA_CEP_URL + cep + apiReturnType);
 	}
+
 
 }
